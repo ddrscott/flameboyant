@@ -1,5 +1,6 @@
 require 'flameboyant/version'
 require 'ruby-prof-flamegraph'
+require 'uri'
 
 # rubocop:disable all
 module Flameboyant
@@ -24,6 +25,7 @@ module Flameboyant
 
     dst_data = dest_dir.join("#{base_name}.txt")
     dst_svg = dest_dir.join("#{base_name}.svg")
+    dst_html = dest_dir.join("#{base_name}.html")
 
     log "writing: #{dst_data}"
     File.open(dst_data, 'w') do |f|
@@ -36,7 +38,41 @@ module Flameboyant
       log "removing: #{dst_data}"
       FileUtils.rm(dst_data)
     end
+    # write html contents
+    File.open(dst_html, 'w') {|f| f << create_html_page(dst_svg)}
+    log "created: #{dst_html} <⌘ - Click> to open in your browser."
+
+    # return original results
     block_result
+  end
+
+  def create_html_page(dst_svg)
+    basename = File.basename(dst_svg)
+    <<-HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1">
+    <title>Flame: #{basename}</title>
+
+    <style type="text/css">
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .full-width {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+  <object class="full-width" type="image/svg+xml" data="#{URI.encode(basename)}">Your browser does not support SVGs</object>
+  </body>
+</html>
+    HTML
   end
 
   def dest_dir

@@ -2,6 +2,8 @@
 
 Generate an interactive SVG flame chart.
 
+<img src='flameboyant.jpg' alt='example flame chart'/>
+
 ## Thanks
 - https://github.com/oozou/ruby-prof-flamegraph
 - https://github.com/brendangregg/FlameGraph
@@ -29,7 +31,7 @@ end
 + name (String, optional) :: The output file will be prefixed with this name.
 + width (Integer, optional) :: defaults to 1920.
 
-When running with Rails SVG files are written to `Rails.root/tmp/flames`
+When running under Rails, SVG files are written to `Rails.root/tmp/flames`
 
 ## Installation
 

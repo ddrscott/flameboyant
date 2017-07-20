@@ -27,6 +27,14 @@ Flameboyant.profile do
 end
 ```
 
+If you're profiling in development mode, we recommend turning on `cache_classes`
+and `eager_load` in `RAILS_ROOT/config/environments/development.rb`.
+
+```ruby
+config.cache_classes = true
+config.eager_load = true
+```
+
 ## `profile` Options
 + name (String, optional) :: The output file will be prefixed with this name.
 + width (Integer, optional) :: defaults to 1920.
@@ -34,6 +42,13 @@ end
 When running under Rails, SVG files are written to `Rails.root/tmp/flames`
 
 ## Installation
+
+*Requires Perl!* This Rubygem requires Perl. Data is recorded via Ruby and
+sent to a Perl script to generate the CSV. One day, maybe we'll convert the Perl
+script into a Ruby or Crystal script. Until then make sure you have Perl
+installed in your system. OSX already has Perl installed. If you're on another
+operating system, please search online for "install Perl on YOUR_OS" to get further
+instructions.
 
 Add this line to your application's Gemfile:
 

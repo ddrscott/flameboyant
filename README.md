@@ -2,6 +2,8 @@
 
 Generate an interactive SVG flame chart.
 
+<img src='flameboyant.jpg' alt='example flame chart'/>
+
 ## Thanks
 - https://github.com/oozou/ruby-prof-flamegraph
 - https://github.com/brendangregg/FlameGraph

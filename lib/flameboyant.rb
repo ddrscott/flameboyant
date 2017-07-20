@@ -9,9 +9,7 @@ module Flameboyant
   GRAPHER = File.join(__dir__, 'flamegraph.pl')
 
   def profile(name: nil, width: 1920, &block)
-    name = "#{name}_#{timestamp}"
-
-    RubyProf::FlameGraphPrinter
+    base_name = "#{name}_#{timestamp}"
 
     block_result = nil
     log 'starting profile'
@@ -24,8 +22,8 @@ module Flameboyant
 
     FileUtils.mkdir_p(dest_dir)
 
-    dst_data = dest_dir.join("#{name}.txt")
-    dst_svg = dest_dir.join("#{name}.svg")
+    dst_data = dest_dir.join("#{base_name}.txt")
+    dst_svg = dest_dir.join("#{base_name}.svg")
 
     log "writing: #{dst_data}"
     File.open(dst_data, 'w') do |f|
